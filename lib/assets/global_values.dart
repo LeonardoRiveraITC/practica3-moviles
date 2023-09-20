@@ -5,7 +5,7 @@ class GlobalValues with ChangeNotifier{
   //static ValueNotifier<bool> flagTheme = ValueNotifier<bool>(true);
   static late ThemeData current;
   static late bool flag=false;
-
+  static late String user=''; 
 
   ThemeData light=ThemeData.light().copyWith(primaryColor: Colors.green);
 
@@ -13,9 +13,11 @@ class GlobalValues with ChangeNotifier{
 
   GlobalValues({required bool? isDark}){
     if(isDark!=null){
+        flag= isDark ? true : false;
         current= isDark ? dark : light;
     }else{
       current= light;
+      flag=false;
     }
   }
 
@@ -32,8 +34,17 @@ class GlobalValues with ChangeNotifier{
     }
     notifyListeners();
   }
+
+    Future<void> saveUser(String user) async{
+    SharedPreferences prefs= await SharedPreferences.getInstance();
+    prefs.setString('user', user);
+    user=prefs.getString('user') ?? '';
+    notifyListeners();
+  }
+  
   ThemeData get getTheme => current;
   bool get getFlag => flag;
   set setFlag(value) => flag=value;
-
+  String get getUser => user;
+  
 }

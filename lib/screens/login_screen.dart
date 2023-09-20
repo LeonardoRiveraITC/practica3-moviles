@@ -11,6 +11,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
+    bool? checked=false;
+
     TextEditingController txtConUser = TextEditingController();
     TextEditingController txtConPass = TextEditingController();
     final txtUser = TextField(
@@ -81,7 +83,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              imgLogo
+              imgLogo,
+              CheckboxListTile(
+                title: Text("Recuerdame"),
+                value: checked,
+                onChanged: (newValue) {
+                  setState(() {
+                    checked = newValue;
+                  });
+                },
+  controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+)
+
             ],
           ),
         ),
