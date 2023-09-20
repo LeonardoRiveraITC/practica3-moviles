@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pmsn20232/assets/global_values.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,13 +11,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool checked=false;
   @override
   Widget build(BuildContext context) {
 
-    bool? checked=false;
-
     TextEditingController txtConUser = TextEditingController();
     TextEditingController txtConPass = TextEditingController();
+
     final txtUser = TextField(
       controller: txtConUser,
       decoration: const InputDecoration(
@@ -35,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Mario_Series_Logo.svg/1280px-Mario_Series_Logo.svg.png')
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png')
         )
       ),
     );
@@ -43,8 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final btnEntrar = FloatingActionButton.extended(
       icon: Icon(Icons.login),
       label: Text('Entrar'),
-      onPressed: () => 
-      Navigator.pushNamed(context, '/dash')
+      onPressed: ()  {
+      if(checked){
+        Provider.of<GlobalValues>(context,listen: false).setUser=txtConUser.text;
+      }
+      Navigator.pushNamed(context, '/dash');
+      }
       /*(){
         Navigator.pushNamed(context, '/dash');
       }*/
@@ -59,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
             opacity: .7,
             fit: BoxFit.fill,
             image: NetworkImage(
-              'https://getwallpapers.com/wallpaper/full/a/7/c/1227626-widescreen-mario-bros-wallpaper-hd-1080x1920-retina.jpg')
+              'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg')
           )
         ),
         child: Padding(
@@ -84,17 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               imgLogo,
-              CheckboxListTile(
-                title: Text("Recuerdame"),
-                value: checked,
-                onChanged: (newValue) {
-                  setState(() {
-                    checked = newValue;
-                  });
-                },
-  controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
-)
-
+                  Checkbox(
+                    value: checked,
+                    onChanged: (value) {
+                      setState(() {
+                        checked = !checked;
+                      });
+                    },
+                  ),
             ],
           ),
         ),
