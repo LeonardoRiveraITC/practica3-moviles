@@ -45,14 +45,14 @@ class AgendaDB {
   Future<int> UPDATE(String tblName, Map<String,dynamic> data) async {
     var  conexion = await database;
     return conexion!.update(tblName, data, 
-    where: 'idTask = ?', 
-    whereArgs: [data['idTask']]);
+    where: 'idTareas = ?', 
+    whereArgs: [data['idTareas']]);
   }
 
   Future<int> DELETE(String tblName, int idTask) async {
     var  conexion = await database;
     return conexion!.delete(tblName, 
-      where: 'idTask = ?',
+      where: 'idTareas = ?',
       whereArgs: [idTask]);
   }
 
