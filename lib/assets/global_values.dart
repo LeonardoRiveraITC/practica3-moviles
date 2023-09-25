@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GlobalValues with ChangeNotifier{
-  //static ValueNotifier<bool> flagTheme = ValueNotifier<bool>(true);
+  static ValueNotifier<bool> flagTask = ValueNotifier<bool>(true);
   static late ThemeData current;
   static late bool flag=false;
   static late String? user=''; 

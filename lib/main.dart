@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:pmsn20232/screens/dashboard_screen.dart';
 
 Future<void> main() async {
+WidgetsFlutterBinding.ensureInitialized();
 SharedPreferences prefs= await SharedPreferences.getInstance();
 return runApp(ChangeNotifierProvider(
   child:MyApp(),
