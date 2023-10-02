@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png')
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEAULx95mtsMi1CT2tWQldf6MfnLHGzI0nxihbieLy5jmt6H5hhSnLjaiFXjCTPZcbBx4&usqp=CAU')
         )
       ),
     );

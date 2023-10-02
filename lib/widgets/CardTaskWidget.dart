@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pmsn20232/screens/add_task.dart';
 
 import '../models/task_model.dart';
 import '../database/agendadb.dart';
 
-class CardTaskWidget extends StatefulWidget {
+class CardTaskWidget extends StatelessWidget {
   CardTaskWidget({super.key, required this.taskModel,this.agendaDB});
 
   TaskModel taskModel;
   AgendaDB? agendaDB;
 
-  @override
-  State<CardTaskWidget> createState() => _CardTaskWidgetState();
-}
-
-class _CardTaskWidgetState extends State<CardTaskWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,13 +21,13 @@ class _CardTaskWidgetState extends State<CardTaskWidget> {
       child: Row(children: [
           Column(
             children: [
-              Text(widget.taskModel.nameTask!),
-              Text(widget.taskModel.dscTask!)
+              Text(taskModel.nameTask!),
+              Text(taskModel.dscTask!)
             ],
           ),
           Expanded(child: Container()),
           Column(
-            children: [GestureDetector(onTap: () {
+            children: [GestureDetector(onTap: () => {Navigator.push(context,MaterialPageRoute(builder: (context)=>AddTask(taskModel: taskModel)))},/*
               showDialog(context: context,builder: (context){return AlertDialog(title: Text("Mensaje del sistema"),content: 
               Text("Deseas borrar"),
               actions: [
@@ -39,7 +35,7 @@ class _CardTaskWidgetState extends State<CardTaskWidget> {
                   widget.agendaDB!.DELETE('tblTareas', widget.taskModel.idTask!).then((value) => Navigator.pop(context));
                 }, child: Text("si")),
                 TextButton(onPressed: (){Navigator.pop(context);}, child: Text("no"))]);});
-            },child:Image.asset("/assets/naranja.png",height: 50)),
+            },*/child:Image.asset("/assets/naranja.png",height: 50)),
             IconButton(onPressed:(){},icon:Icon(Icons.delete))],
           )
       ],),
