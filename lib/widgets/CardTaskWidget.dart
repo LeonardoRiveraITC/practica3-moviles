@@ -35,7 +35,7 @@ class CardTaskWidget extends StatelessWidget {
                   widget.agendaDB!.DELETE('tblTareas', widget.taskModel.idTask!).then((value) => Navigator.pop(context));
                 }, child: Text("si")),
                 TextButton(onPressed: (){Navigator.pop(context);}, child: Text("no"))]);});
-            },*/child:Image.asset("/assets/naranja.png",height: 50)),
+            },*/child:Image.asset("assets/naranja.png",height: 50)),
             IconButton(onPressed:(){},icon:Icon(Icons.delete))],
           )
       ],),

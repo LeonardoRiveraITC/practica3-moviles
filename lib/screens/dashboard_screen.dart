@@ -48,6 +48,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             title: Text('Task Manager'),
             onTap: () => Navigator.pushNamed(context, '/task'),
           ),
+          ListTile(
+            leading: Icon(Icons.movie),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Movies'),
+            onTap: () => Navigator.pushNamed(context, '/popular'),
+          ),
           DayNightSwitcher(
             isDarkModeEnabled: Provider.of<GlobalValues>(context,listen: false).getFlag??false,
             onStateChanged: (isDarkModeEnabled) {

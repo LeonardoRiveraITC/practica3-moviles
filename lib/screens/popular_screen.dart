@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmsn20232/network/api_popular.dart';
-
+import 'package:pmsn20232/models/popular_model.dart';
+import 'package:pmsn20232/widgets/item_movie_widget.dart';
 class PopularScreen extends StatefulWidget {
   PopularScreen({Key? key}) : super(key: key);
 
@@ -23,8 +24,23 @@ class _PopularScreenState extends State<PopularScreen> {
        appBar:AppBar(title:Text('Popoular movies'),),
        body: FutureBuilder(
         future:apiPopular!.getAllPopular(),
-        builder:(context,snapshot){
-          return Text('hola');
+        builder:(context, AsyncSnapshot<List<PopularModel>?> snapshot){
+          if(snapshot.hasData){
+            return GridView.builder(
+            padding:const EdgeInsets.all(10),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context,index){
+            return itemMovieWidget(snapshot.data![index]);
+          });
+          }else{
+            if(snapshot.hasError){
+              return Center(child: Text('Algo salio mal'));
+            }else{
+              return CircularProgressIndicator();
+            }
+          }
+
         }
        ),
     );

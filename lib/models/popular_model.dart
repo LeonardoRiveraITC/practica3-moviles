@@ -30,21 +30,22 @@ class PopularModel {
   DateTime? releaseDate;
   String? title;
   bool? video;
-  double? voteAverage;
+  int? voteAverage;
   int? voteCount;
 
   factory PopularModel.fromMap(Map<String,dynamic> map){
     return PopularModel(
-      backdropPath: map['backdrop_path'],
+      backdropPath: map['backdrop_path'] ?? '',
       id:map['id'],
       originalLanguage: map['original_language'],
       originalTitle: map['original_title'],
       overview: map ['overview'],
       popularity: map['popularity'],
-      posterPath: map['posterPath'],
+      posterPath: map['posterPath'] ?? '',
       releaseDate: map['releaseDate'],
       title: map['title'],
-      voteAverage:map['vote_average'],
+      voteAverage:(map['vote_average' is int])? (map['vote_average' as int]).toDouble():map['vote_average'],
+      //voteAverage:map['vote_average'] ?? '',
       voteCount:map['vote_count']
 
     );
