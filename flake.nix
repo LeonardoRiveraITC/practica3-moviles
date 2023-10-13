@@ -1,7 +1,7 @@
 {
-description = "Flutter 3.0.4";
+description = "Flutter 3.13.4";
 inputs = {
-  nixpkgs.url = "github:NixOS/nixpkgs/";
+  nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   flake-utils.url = "github:numtide/flake-utils";
 };
 outputs = { self, nixpkgs, flake-utils }:
@@ -25,9 +25,11 @@ outputs = { self, nixpkgs, flake-utils }:
     {
       devShell =
         with pkgs; mkShell rec {
-   	GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/31.0.0/aapt2";
+          GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidSdk}/libexec/android-sdk/build-tools/31.0.0/aapt2";
+   	    dart = "${flutter.dart}";
           ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
           buildInputs = [
+            dart
             flutter
             androidSdk
             jdk11
