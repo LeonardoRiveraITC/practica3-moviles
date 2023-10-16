@@ -65,7 +65,7 @@ class _AddProfessorState extends State<AddProfessor> {
             Navigator.pop(context);
           });
         } else {
-          agendaDB!.UPDATE('tblProfessor', {
+          agendaDB!.UPDATEPROFESSOR('tblProfessor', {
             'idProfessor': widget.professorModel!.idProfessor,
             'nameProfessor': txtConName.text,
             'email': txtConEmail.text,

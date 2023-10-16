@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsn20232/assets/global_values.dart';
 import 'package:pmsn20232/screens/add_professor.dart';
 
 import '../models/professor_model.dart';
@@ -48,7 +49,36 @@ class CardProfessorWidget extends StatelessWidget {
                 TextButton(onPressed: (){Navigator.pop(context);}, child: Text("no"))]);});
             },*/
                   child: Image.asset("assets/naranja.png", height: 50)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Mensaje del sistema'),
+                          content: Text('¿Deseas borrar la tarea?'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  agendaDB!
+                                      .DELETEPROFESSOR('tblProfessor',
+                                          professorModel.idProfessor!)
+                                      .then((value) {
+                                    Navigator.pop(context);
+                                    GlobalValues.flagProfessor.value =
+                                        !GlobalValues.flagProfessor.value;
+                                  });
+                                },
+                                child: Text('Si')),
+                            TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('No')),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.delete))
             ],
           )
         ],

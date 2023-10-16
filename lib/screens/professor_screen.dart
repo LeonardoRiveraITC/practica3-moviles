@@ -34,7 +34,7 @@ class _ProfessorScreen extends State<ProfessorScreen> {
         ],
       ),
       body: ValueListenableBuilder(
-          valueListenable: GlobalValues.flagTask,
+          valueListenable: GlobalValues.flagProfessor,
           builder: (context, value, _) {
             return FutureBuilder(
                 future: agendaDB!.GETALLPROFESSOR(),
