@@ -5,6 +5,6 @@ class CareerModel {
   CareerModel({this.idCareer, this.nameCareer});
   factory CareerModel.fromMap(Map<String, dynamic> map) {
     return CareerModel(
-        idCareer: map['idProfessor'], nameCareer: map['nameProfessor']);
+        idCareer: map['idCareer'], nameCareer: map['nameCareer']);
   }
 }

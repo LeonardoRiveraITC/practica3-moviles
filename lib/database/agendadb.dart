@@ -38,7 +38,7 @@ class AgendaDB {
       CREATE TABLE tblProfessor( 
       idProfessor INTEGER PRIMARY KEY,
       nameProfessor VARCHAR(50),
-      idCareer INTEGER,
+      idCareer INTEGER REFERENCES tblCareer(idCareer),
       email VARCHAR(50)
     );
     ''';
@@ -56,12 +56,12 @@ class AgendaDB {
       notifyDate TEXT,
       descHomework VARCHAR(50),
       done INTEGER,
-      idProfessor INTEGER REFERENCES tblProfessor(ifProfessor)
+      idProfessor INTEGER REFERENCES tblProfessor(idProfessor)
     );
     ''';
     await db.execute(query);
-    await db.execute(profQuery);
     await db.execute(carQuery);
+    await db.execute(profQuery);
     await db.execute(hwQuery);
   }
 
@@ -119,7 +119,7 @@ class AgendaDB {
 
   Future<List<CareerModel>> GETALLCAREER() async {
     var conexion = await database;
-    var result = await conexion!.query('tblProfessor');
+    var result = await conexion!.query('tblCareer');
     return result.map((task) => CareerModel.fromMap(task)).toList();
   }
 
