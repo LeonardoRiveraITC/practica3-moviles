@@ -19,6 +19,7 @@ class HomeworkModel {
     return HomeworkModel(
         idHomework: map['idHomework'],
         expireDate: map['expireDate'],
+        nameHomework: map['nameHomework'],
         notifyDate: map['notifyDate'],
         descHomework: map['descHomework'],
         done: map['done'],

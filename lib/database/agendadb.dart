@@ -140,4 +140,25 @@ class AgendaDB {
     var result = await conexion!.query('tblHomework');
     return result.map((task) => HomeworkModel.fromMap(task)).toList();
   }
+
+  Future<List<ProfessorModel>> GETSEARCHPROFESSOR(String nameProfessor) async {
+    var conexion = await database;
+    var result = await conexion!.query('tblProfessor',
+        where: 'nameProfessor=?', whereArgs: [nameProfessor]);
+    return result.map((task) => ProfessorModel.fromMap(task)).toList();
+  }
+
+  Future<List<CareerModel>> GETSEARCHCAREER(String nameCareer) async {
+    var conexion = await database;
+    var result = await conexion!
+        .query('tblCareer', where: 'nameCareer=?', whereArgs: [nameCareer]);
+    return result.map((task) => CareerModel.fromMap(task)).toList();
+  }
+
+  Future<List<HomeworkModel>> GETSEARCHHOMEWORK(String nameHomework) async {
+    var conexion = await database;
+    var result = await conexion!.query('tblHomework',
+        where: 'nameHomework=?', whereArgs: [nameHomework]);
+    return result.map((task) => HomeworkModel.fromMap(task)).toList();
+  }
 }
