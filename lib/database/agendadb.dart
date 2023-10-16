@@ -25,7 +25,7 @@ class AgendaDB {
     return openDatabase(pathDB, version: versionDB, onCreate: _createTables);
   }
 
-  FutureOr<void> _createTables(Database db, int version) {
+  FutureOr<void> _createTables(Database db, int version) async {
     String query = '''
     CREATE TABLE tblTareas( 
       idTask INTEGER PRIMARY KEY,
@@ -33,17 +33,22 @@ class AgendaDB {
       dscTask VARCHAR(50),
       sttTask BYTE
     );
-    CREATE TABLE tblCareer( 
-      idCareer INTEGER PRIMARY KEY,
-      nameCareer VARCHAR(50),
-    );
-    CREATE TABLE tblProfessor( 
+    ''';
+    String profQuery = '''
+      CREATE TABLE tblProfessor( 
       idProfessor INTEGER PRIMARY KEY,
       nameProfessor VARCHAR(50),
       idCareer INTEGER,
-      email VARCHAR(50),
-      FOREIGN KEY(idCareer) REFERENCES tblCareer(idCareer)
+      email VARCHAR(50)
     );
+    ''';
+    String carQuery = '''
+    CREATE TABLE tblCareer( 
+      idCareer INTEGER PRIMARY KEY,
+      nameCareer VARCHAR(50)
+    );
+    ''';
+    String hwQuery = '''
     CREATE TABLE tblHomework( 
       idHomework INTEGER PRIMARY KEY,
       nameHomework VARCHAR(50),
@@ -51,11 +56,13 @@ class AgendaDB {
       notifyDate TEXT,
       descHomework VARCHAR(50),
       done INTEGER,
-      idProfessor INTEGER,
-      FOREIGN KEY(idProfesor) REFERENCES tblProfessor(idProfessor)
+      idProfessor INTEGER REFERENCES tblProfessor(ifProfessor)
     );
     ''';
-    db.execute(query);
+    await db.execute(query);
+    await db.execute(profQuery);
+    await db.execute(carQuery);
+    await db.execute(hwQuery);
   }
 
   Future<int> INSERT(String tblName, Map<String, dynamic> data) async {

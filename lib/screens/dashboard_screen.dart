@@ -22,25 +22,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget createDrawer(context){
+  Widget createDrawer(context) {
     return Drawer(
       child: ListView(
         children: [
-           UserAccountsDrawerHeader(
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: 
-              NetworkImage('https://i.pravatar.cc/300'),
-            ),
-            accountName: Text(Provider.of<GlobalValues>(context,listen: false).getUser), 
-            accountEmail: Text('mail.com')
-          ),
+          UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
+              ),
+              accountName: Text(
+                  Provider.of<GlobalValues>(context, listen: false).getUser),
+              accountEmail: Text('mail.com')),
           ListTile(
             //leading: Image.network('https://cdn3.iconfinder.com/data/icons/street-food-and-food-trucker-1/64/fruit-organic-plant-orange-vitamin-64.png'),
             leading: Image.asset('assets/naranja.png'),
             trailing: Icon(Icons.chevron_right),
             title: Text('FruitApp'),
             subtitle: Text('Carrusel'),
-            onTap: (){},
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.task_alt_outlined),
@@ -54,10 +53,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
             title: Text('Movies'),
             onTap: () => Navigator.pushNamed(context, '/popular'),
           ),
+          ListTile(
+            leading: Icon(Icons.school),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Carreras'),
+            onTap: () => Navigator.pushNamed(context, '/career'),
+          ),
+          ListTile(
+            leading: Icon(Icons.verified_user_sharp),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Profesores'),
+            onTap: () => Navigator.pushNamed(context, '/professor'),
+          ),
+          ListTile(
+            leading: Icon(Icons.task_alt),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Tareas'),
+            onTap: () => Navigator.pushNamed(context, '/homework'),
+          ),
           DayNightSwitcher(
-            isDarkModeEnabled: Provider.of<GlobalValues>(context,listen: false).getFlag??false,
+            isDarkModeEnabled:
+                Provider.of<GlobalValues>(context, listen: false).getFlag ??
+                    false,
             onStateChanged: (isDarkModeEnabled) {
-                Provider.of<GlobalValues>(context,listen: false).swapTheme();
+              Provider.of<GlobalValues>(context, listen: false).swapTheme();
             },
           ),
         ],
