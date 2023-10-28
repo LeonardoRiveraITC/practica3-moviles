@@ -12,11 +12,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool checked=false;
-  @override
-  Widget build(BuildContext context) {
 
     TextEditingController txtConUser = TextEditingController();
-    TextEditingController txtConPass = TextEditingController();
+    TextEditingController txtConPass = TextEditingController();  
+  @override
+  Widget build(BuildContext context) {
 
     final txtUser = TextField(
       controller: txtConUser,
@@ -33,15 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
       )
     );
 
-    final imgLogo = Container(
-      width: 300,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEAULx95mtsMi1CT2tWQldf6MfnLHGzI0nxihbieLy5jmt6H5hhSnLjaiFXjCTPZcbBx4&usqp=CAU')
-        )
-      ),
-    );
+ //   final imgLogo = Container(
+ //     width: 300,
+ //     decoration: const BoxDecoration(
+ //       image: DecorationImage(
+ //         image: NetworkImage(
+            //'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEAULx95mtsMi1CT2tWQldf6MfnLHGzI0nxihbieLy5jmt6H5hhSnLjaiFXjCTPZcbBx4&usqp=CAU')
+ //       )
+ //     ),
+ //   );
 
     final btnEntrar = FloatingActionButton.extended(
       icon: Icon(Icons.login),
@@ -49,14 +49,16 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: ()  {
       if(checked){
         Provider.of<GlobalValues>(context,listen: false).setUser=txtConUser.text;
+        GlobalValues.saveUser(txtConUser.text,true );
       }
+      print(GlobalValues.user);
       Navigator.pushNamed(context, '/dash');
       }
       /*(){
         Navigator.pushNamed(context, '/dash');
       }*/
     );
-
+ 
     
     return Scaffold(
       body: Container(
@@ -90,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              imgLogo,
                   Checkbox(
                     value: checked,
                     onChanged: (value) {

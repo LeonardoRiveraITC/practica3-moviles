@@ -39,13 +39,12 @@ class GlobalValues with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveUser(String userA, bool? checked) async {
+  static Future<void> saveUser(String userA, bool? checked) async {
     if (checked!) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user', userA);
     }
     user = userA;
-    notifyListeners();
   }
 
   Future<void> retrieveUser() async {

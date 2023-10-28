@@ -10,22 +10,20 @@ import 'package:pmsn20232/screens/dashboard_screen.dart';
 Future<void> main() async {
 WidgetsFlutterBinding.ensureInitialized();
 SharedPreferences prefs= await SharedPreferences.getInstance();
+bool logon= await prefs.getString('user')!.isNotEmpty ;
+Widget home = logon ? DashboardScreen():LoginScreen();
+print("${logon} usuario");
 return runApp(ChangeNotifierProvider(
-  child:MyApp(),
+  child:MyApp(home: home),
   create:(_) =>GlobalValues(isDark: prefs.getBool('isDark')??false))
 );
 }
 
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final Widget home;
+  MyApp({super.key, required this.home});
 
-  Widget home=LoginScreen();
-
-  Future<void> homeSet() async{
-    SharedPreferences prefs= await SharedPreferences.getInstance();
-     home=prefs.getString('user')!=null ? DashboardScreen():LoginScreen();
-  } 
   @override
   Widget build(BuildContext context) {
         return Consumer<GlobalValues>(
