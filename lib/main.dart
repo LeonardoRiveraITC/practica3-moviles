@@ -8,17 +8,15 @@ import 'package:provider/provider.dart';
 import 'package:pmsn20232/screens/dashboard_screen.dart';
 
 Future<void> main() async {
-WidgetsFlutterBinding.ensureInitialized();
-SharedPreferences prefs= await SharedPreferences.getInstance();
-bool logon= await prefs.getString('user')!.isNotEmpty ;
-Widget home = logon ? DashboardScreen():LoginScreen();
-print("${logon} usuario");
-return runApp(ChangeNotifierProvider(
-  child:MyApp(home: home),
-  create:(_) =>GlobalValues(isDark: prefs.getBool('isDark')??false))
-);
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool logon = await prefs.getString('user')!.isNotEmpty;
+  Widget home = logon ? DashboardScreen() : LoginScreen();
+  print("${logon} usuario");
+  return runApp(ChangeNotifierProvider(
+      child: MyApp(home: home),
+      create: (_) => GlobalValues(isDark: prefs.getBool('isDark') ?? false)));
 }
-
 
 class MyApp extends StatelessWidget {
   final Widget home;
@@ -26,17 +24,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return Consumer<GlobalValues>(
-          builder: (context,provider,child) {
-            return MaterialApp(
-              home: home,
-              routes: getRoutes(),
-              theme: provider.getTheme
-              /*routes: {
+    return Consumer<GlobalValues>(builder: (context, provider, child) {
+      return MaterialApp(
+          home: home, routes: getRoutes(), theme: provider.getTheme
+          /*routes: {
                 '/dash' : (BuildContext context) => LoginScreen()
               },*/
-            );
-          }
-        );
-      }
+          );
+    });
   }
+}

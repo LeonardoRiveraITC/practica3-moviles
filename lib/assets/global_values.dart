@@ -47,17 +47,23 @@ class GlobalValues with ChangeNotifier {
     user = userA;
   }
 
-  Future<void> retrieveUser() async {
+  Future<String?> retrieveUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    user = '';
     if (prefs.getString('user') != null) {
       user = prefs.getString('user');
     }
-    notifyListeners();
+    return user;
+  }
+
+  static Future<void> deleteUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('user', '');
   }
 
   ThemeData get getTheme => current;
   bool get getFlag => flag;
   set setFlag(value) => flag = value;
-  String get getUser => user as String;
+  Future<String?> get getUser => retrieveUser();
   set setUser(value) => user = value;
 }
