@@ -10,6 +10,7 @@ import 'package:pmsn20232/screens/login_screen.dart';
 import 'package:pmsn20232/screens/popular_screen.dart';
 import 'package:pmsn20232/screens/professor_screen.dart';
 import 'package:pmsn20232/screens/task_screen.dart';
+import 'package:pmsn20232/screens/register_screen.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return {
@@ -23,7 +24,8 @@ Map<String, WidgetBuilder> getRoutes() {
     '/add_career': (BuildContext context) => AddCareer(),
     '/popular': (BuildContext context) => PopularScreen(),
     '/add_homework': (BuildContext context) => AddHomework(),
-    '/homework': (BuildContext context) => HomeworkScreen()
+    '/homework': (BuildContext context) => HomeworkScreen(),
+    '/register': (BuildContext context) => RegisterScreen()
     //'/career': (BuildContext context) => CareerScreen(),
     //'/homework': (BuildContext context) => HomeworkScreen(),
   };

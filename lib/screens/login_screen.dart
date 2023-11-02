@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmsn20232/firebase/email_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:pmsn20232/assets/global_values.dart';
 
@@ -12,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool checked=false;
-
+  final emailAuth=EmailAuth();
     TextEditingController txtConUser = TextEditingController();
     TextEditingController txtConPass = TextEditingController();  
   @override
@@ -46,11 +47,20 @@ class _LoginScreenState extends State<LoginScreen> {
     final btnEntrar = FloatingActionButton.extended(
       icon: Icon(Icons.login),
       label: Text('Entrar'),
-      onPressed: ()  {
+      onPressed: () async {
+      //bool res  = await  emailAuth.validateUser(emailUse: txtConUser.text,pwdUser: txtConPass.text);
+      //if(res){
+      //  Navigator.pushNamed(context, '/dash');
+      //}
       if(checked){
-        Provider.of<GlobalValues>(context,listen: false).setUser=txtConUser.text;
-        GlobalValues.saveUser(txtConUser.text,true );
-      }
+        if(txtConUser.text.isNotEmpty && txtConPass.text.isNotEmpty){
+          Provider.of<GlobalValues>(context,listen: false).setUser=txtConUser.text;
+          GlobalValues.saveUser(txtConUser.text,true );
+        }else{
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Por favor, llena todos los campos")));
+        }
+
+        }
       print(GlobalValues.user);
       Navigator.pushNamed(context, '/dash');
       }
@@ -100,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                   ),
+                  TextButton(onPressed:(){Navigator.pushNamed(context, '/register');},child: Text("Registrarse"))
             ],
           ),
         ),
