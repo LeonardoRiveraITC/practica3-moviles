@@ -13,9 +13,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool logon = await prefs.getString('user')!.isNotEmpty;
-  Widget home = logon ? DashboardScreen() : LoginScreen();
-  print("${logon} usuario");
+  //bool logon = await prefs.getString('user')!.isNotEmpty;
+  Widget home =  LoginScreen();
   return runApp(ChangeNotifierProvider(
       child: MyApp(home: home),
       create: (_) => GlobalValues(isDark: prefs.getBool('isDark') ?? false)));
