@@ -9,12 +9,11 @@ import 'package:pmsn20232/screens/dashboard_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   //bool logon = await prefs.getString('user')!.isNotEmpty;
-  Widget home =  LoginScreen();
+  Widget home = LoginScreen();
   return runApp(ChangeNotifierProvider(
       child: MyApp(home: home),
       create: (_) => GlobalValues(isDark: prefs.getBool('isDark') ?? false)));

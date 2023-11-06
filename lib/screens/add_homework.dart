@@ -5,6 +5,7 @@ import 'package:pmsn20232/assets/global_values.dart';
 import 'package:pmsn20232/database/agendadb.dart';
 import 'package:pmsn20232/models/homework_model.dart';
 import 'package:intl/intl.dart';
+import 'package:pmsn20232/models/professor_model.dart';
 
 class AddHomework extends StatefulWidget {
   AddHomework({super.key, this.homeworkModel});
@@ -49,7 +50,7 @@ class _AddHomeworkState extends State<AddHomework> {
   TextEditingController txtConDue = TextEditingController();
   TextEditingController txtConRem = TextEditingController();
   TextEditingController txtConProf = TextEditingController();
-
+  int? txtProf;
   @override
   Widget build(BuildContext context) {
     final txtNameHomework = TextFormField(
@@ -136,13 +137,6 @@ class _AddHomeworkState extends State<AddHomework> {
       controller: txtConRem,
     );
 
-    final txtProf = TextFormField(
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-          label: Text('Profesor'), border: OutlineInputBorder()),
-      controller: txtConProf,
-    );
-
     final space = SizedBox(height: 10);
 
     final ElevatedButton btnGuardar = ElevatedButton(
@@ -164,7 +158,7 @@ class _AddHomeworkState extends State<AddHomework> {
             'descHomework': txtConDesc.text,
             'done': storeState.toString(),
             'expireDate': txtConDue.text,
-            'idProfessor': txtConProf.text
+            'idProfessor': txtProf!.toInt(),
           }).then((value) {
             var msj = (value > 0) ? 'Insercion exitosa' : 'error';
             var snackbar = SnackBar(content: Text(msj));
@@ -213,7 +207,31 @@ class _AddHomeworkState extends State<AddHomework> {
             space,
             txtDescRem,
             space,
-            txtProf,
+            FutureBuilder(
+                future: agendaDB!.GETALLPROFESSOR(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data;
+                    return DropdownButton<int>(
+                      value: txtProf,
+                      onChanged: (int? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          txtProf = value;
+                          print(value);
+                        });
+                      },
+                      items: data
+                          .map<DropdownMenuItem<int>>((ProfessorModel value) {
+                        return DropdownMenuItem<int>(
+                          value: value.idCareer,
+                          child: Text(value.nameProfessor.toString()),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return Text("Algo salio mal");
+                }),
             btnGuardar
           ],
         ),

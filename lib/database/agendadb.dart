@@ -123,6 +123,12 @@ class AgendaDB {
     return result.map((task) => CareerModel.fromMap(task)).toList();
   }
 
+  Future<List<CareerModel>> GETALLCAREERITEMS() async {
+    var conexion = await database;
+    var result = await conexion!.query('tblCareer');
+    return result.map((task) => CareerModel.fromMap(task)).toList();
+  }
+
   Future<int> UPDATEHOMEWORK(String tblName, Map<String, dynamic> data) async {
     var conexion = await database;
     return conexion!.update(tblName, data,

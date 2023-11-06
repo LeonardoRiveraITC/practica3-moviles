@@ -11,10 +11,12 @@ import 'package:pmsn20232/screens/popular_screen.dart';
 import 'package:pmsn20232/screens/professor_screen.dart';
 import 'package:pmsn20232/screens/task_screen.dart';
 import 'package:pmsn20232/screens/register_screen.dart';
+import 'package:pmsn20232/screens/fruits_screen.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return {
     '/login': (BuildContext context) => LoginScreen(),
+    '/fruits': (BuildContext context) => FruitsScreen(),
     '/dash': (BuildContext context) => DashboardScreen(),
     '/task': (BuildContext context) => TaskScreen(),
     '/add': (BuildContext context) => AddTask(),

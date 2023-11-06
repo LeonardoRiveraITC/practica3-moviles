@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmsn20232/assets/global_values.dart';
 import 'package:pmsn20232/database/agendadb.dart';
+import 'package:pmsn20232/models/career_model.dart';
 import 'package:pmsn20232/models/professor_model.dart';
 
 class AddProfessor extends StatefulWidget {
@@ -12,6 +13,7 @@ class AddProfessor extends StatefulWidget {
 
 class _AddProfessorState extends State<AddProfessor> {
   AgendaDB? agendaDB;
+  int? txtCareer;
   @override
   void initState() {
     // TODO: implement initState
@@ -20,13 +22,11 @@ class _AddProfessorState extends State<AddProfessor> {
     if (widget.professorModel != null) {
       txtConName.text = widget.professorModel!.nameProfessor!;
       txtConEmail.text = widget.professorModel!.email!;
-      txtConCareer.text = widget.professorModel!.idCareer!.toString();
     }
   }
 
   TextEditingController txtConName = TextEditingController();
   TextEditingController txtConEmail = TextEditingController();
-  TextEditingController txtConCareer = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final txtNameTask = TextFormField(
@@ -41,13 +41,6 @@ class _AddProfessorState extends State<AddProfessor> {
       controller: txtConEmail,
       maxLines: 6,
     );
-    final txtCareer = TextFormField(
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-          label: Text('Carrera'), border: OutlineInputBorder()),
-      controller: txtConCareer,
-    );
-
     final space = SizedBox(height: 10);
 
     final ElevatedButton btnGuardar = ElevatedButton(
@@ -57,7 +50,7 @@ class _AddProfessorState extends State<AddProfessor> {
           agendaDB!.INSERT('tblProfessor', {
             'nameProfessor': txtConName.text,
             'email': txtConEmail.text,
-            'idCareer': txtConCareer.text
+            'idCareer': txtCareer
           }).then((value) {
             var msj = (value > 0) ? 'Insercion exitosa' : 'error';
             var snackbar = SnackBar(content: Text(msj));
@@ -69,7 +62,7 @@ class _AddProfessorState extends State<AddProfessor> {
             'idProfessor': widget.professorModel!.idProfessor,
             'nameProfessor': txtConName.text,
             'email': txtConEmail.text,
-            'idCareer': txtConCareer.text
+            'idCareer': txtCareer
           }).then((value) {
             GlobalValues.flagProfessor.value =
                 !GlobalValues.flagProfessor.value;
@@ -98,7 +91,31 @@ class _AddProfessorState extends State<AddProfessor> {
             space,
             txtEmailProfessor,
             space,
-            txtCareer,
+            FutureBuilder(
+                future: agendaDB!.GETALLCAREER(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data;
+                    return DropdownButton<int>(
+                      value: txtCareer,
+                      onChanged: (int? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          txtCareer = value;
+                          print(value);
+                        });
+                      },
+                      items:
+                          data.map<DropdownMenuItem<int>>((CareerModel value) {
+                        return DropdownMenuItem<int>(
+                          value: value.idCareer,
+                          child: Text(value.nameCareer.toString()),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return Text("Algo salio mal");
+                }),
             space,
             btnGuardar
           ],

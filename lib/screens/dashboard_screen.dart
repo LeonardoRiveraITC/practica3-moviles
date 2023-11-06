@@ -89,6 +89,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Navigator.pushNamed(context, '/login');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.circle),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Lenguajes de programación'),
+            onTap: () => Navigator.pushNamed(context, '/fruits'),
+          ),
           DayNightSwitcher(
             isDarkModeEnabled:
                 Provider.of<GlobalValues>(context, listen: false).getFlag ??
